@@ -15,26 +15,35 @@ function loadData() {
   return JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 }
 
-function saveData(data) {
-  fs.writeFileSync(dataPath, JSON.stringify(data, null, 2), 'utf8');
-}
-
-// Com4_2.1be — TODO1: GET /jokebook/categories
+// GET /jokebook/categories
 app.get('/jokebook/categories', (req, res) => {
-  //TODO1
+  const data = loadData();
+  res.json(data.categories);
 });
 
-// Com4_2.1be — TODO2: GET /jokebook/joke/:category (losowy żart)
+// GET /jokebook/joke/:category — losowy żart
 app.get('/jokebook/joke/:category', (req, res) => {
-  //TODO2
+  const { category } = req.params;
+  const data = loadData();
+
+  if (!data.categories.includes(category) || !Array.isArray(data[category])) {
+    return res.status(400).json({ error: `no jokes for category ${category}` });
+  }
+
+  const jokes = data[category];
+  const joke = jokes[Math.floor(Math.random() * jokes.length)];
+  res.json(joke);
 });
 
-// Com4_2.1be — TODO3: własny endpoint
-//TODO3
+app.get('/jokebook/count/:category', (req, res) => {
+  const { category } = req.params;
+  const data = loadData();
 
-// Com4_2.2be — TODO4: POST /jokebook/joke/:category
-app.post('/jokebook/joke/:category', (req, res) => {
-  //TODO4
+  if (!data.categories.includes(category) || !Array.isArray(data[category])) {
+    return res.status(400).json({ error: `no jokes for category ${category}` });
+  }
+
+  res.json({ category, count: data[category].length });
 });
 
 const PORT = process.env.PORT || 3000;
