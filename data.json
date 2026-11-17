@@ -1,5 +1,8 @@
 {
-  "categories": ["funnyJoke", "lameJoke"],
+  "categories": [
+    "funnyJoke",
+    "lameJoke"
+  ],
   "funnyJoke": [
     {
       "joke": "Dlaczego komputer poszedł do lekarza?",
@@ -12,6 +15,10 @@
     {
       "joke": "Co mówi jeden bit do drugiego?",
       "response": "„Trzymaj się, zaraz się przestawiamy!”"
+    },
+    {
+      "joke": "Test wysłania?",
+      "response": "działa"
     }
   ],
   "lameJoke": [
